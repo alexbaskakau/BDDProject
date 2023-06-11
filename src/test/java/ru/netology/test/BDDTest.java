@@ -18,7 +18,8 @@ public class BDDTest {
 
         new LoginPage()
                 .validLogin(loginData)
-                .validVerify(DataHelper.getVerificationCodeFor(loginData));
-
+                .validVerify(DataHelper.getVerificationCodeFor(loginData))
+                .transferPage()
+                .transfer(DataHelper.getFirstCardNumber(),"50");
     }
 }
