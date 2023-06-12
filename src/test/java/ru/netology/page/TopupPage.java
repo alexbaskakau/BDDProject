@@ -12,9 +12,9 @@ public class TopupPage {
 public TopupPage() {
     heading.shouldBe(Condition.visible);
 }
-public DashboardPage transfer(DataHelper.FirstCardNumber firstCardNumber, String amount) {
+public static DashboardPage transfer(DataHelper.SecondCardNumber secondCardNumber, String amount) {
     $("[data-test-id='amount'] input").setValue(amount);
-    $("[data-test-id='from'] input").setValue(firstCardNumber.getCardOneNumber());
+    $("[data-test-id='from'] input").setValue(secondCardNumber.getCardSecondNumber());
     $("[data-test-id='action-transfer']").click();
     return new DashboardPage();
 }
