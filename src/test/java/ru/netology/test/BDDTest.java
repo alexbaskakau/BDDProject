@@ -21,10 +21,8 @@ public class BDDTest {
     int initBalCardTwo;
     int finBalCardOne;
     int finBalCardTwo;
-
-
-    @Test
-    void shouldTransferFromSecondToFirstCard() {
+    @BeforeEach
+    void SetUp() {
         open("http://localhost:7777");
         var loginData = DataHelper.getAuthInfo();
 
@@ -33,14 +31,42 @@ public class BDDTest {
                 .validVerify(DataHelper.getVerificationCodeFor(loginData));
         initBalCardOne = new DashboardPage().getFirstCardBalance();
         initBalCardTwo = new DashboardPage().getSecondCardBalance();
+    }
+
+
+    @Test
+    void shouldTransferFromSecondToFirstCard() {
         int amount = 2500;
         new DashboardPage()
-                .transferPage()
-                .transfer(DataHelper.getSecondCardNumber(), Integer.toString(amount));
+                .transferPage2()
+                .transfer(DataHelper.getSecondCardNumber().getCardSecondNumber(), Integer.toString(amount));
         finBalCardOne = new DashboardPage().getFirstCardBalance();
         finBalCardTwo = new DashboardPage().getSecondCardBalance();
         assertEquals(initBalCardOne + amount, finBalCardOne);
         assertEquals(initBalCardTwo - amount, finBalCardTwo);
+    }
+    @Test
+    void shouldTransferFromFirstToSecondCard() {
+
+        int amount = 2500;
+        new DashboardPage()
+                .transferPage1()
+                .transfer(DataHelper.getFirstCardNumber().getCardOneNumber(), Integer.toString(amount));
+        finBalCardOne = new DashboardPage().getFirstCardBalance();
+        finBalCardTwo = new DashboardPage().getSecondCardBalance();
+        assertEquals(initBalCardOne - amount, finBalCardOne);
+        assertEquals(initBalCardTwo + amount, finBalCardTwo);
+    }
+    @Test
+    void shouldTransferPennies() {
+        double amount = 25.5;
+        new DashboardPage()
+                .transferPage1()
+                .transfer(DataHelper.getFirstCardNumber().getCardOneNumber(), Double.toString(amount));
+        finBalCardOne = new DashboardPage().getFirstCardBalance();
+        finBalCardTwo = new DashboardPage().getSecondCardBalance();
+        assertEquals(initBalCardOne - amount, finBalCardOne);
+        assertEquals(initBalCardTwo + amount, finBalCardTwo);
     }
     }
 

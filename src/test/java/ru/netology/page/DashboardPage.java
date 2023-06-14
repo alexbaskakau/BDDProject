@@ -25,8 +25,12 @@ public class DashboardPage {
         heading.shouldBe(visible);
 
     }
-    public TopupPage transferPage() {
+    public TopupPage transferPage2() {
         $$("[data-test-id='action-deposit'").first().click();
+        return new TopupPage();
+    }
+    public TopupPage transferPage1() {
+        $$("[data-test-id='action-deposit'").last().click();
         return new TopupPage();
     }
     public int getFirstCardBalance() {
