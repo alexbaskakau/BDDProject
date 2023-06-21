@@ -12,7 +12,7 @@ public class TopupPage {
 public TopupPage() {
     heading.shouldBe(Condition.visible);
 }
-public static DashboardPage transfer(String cardNumber, String amount) {
+public DashboardPage transfer(String cardNumber, String amount) {
     $("[data-test-id='amount'] input").setValue(amount);
     $("[data-test-id='from'] input").setValue(cardNumber);
     $("[data-test-id='action-transfer']").click();
